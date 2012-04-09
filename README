@@ -1,0 +1,9 @@
+Pingmon
+====================================
+Usage:
+pingmon <ip> <ping retry>
+<ip> IP address, not DNS.
+<ping retry> Optional. Ping retry time inseconds, between 20 - 360. Default 20.
+
+Example:
+pingmon 8.8.8.8 20
