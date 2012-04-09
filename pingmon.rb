@@ -8,11 +8,13 @@ set :server, 'webrick'
 set :port => 8080
 set :environment => :production
 
+#Ocra is creating an exe.
 if defined?(Ocra)
 	puts "Ocra building .exe"
 	exit
 end
 
+#Disable Webrick logging to console
 $stderr = StringIO.new
 
 def print_stats
@@ -29,10 +31,10 @@ end
 
 #If no IP argument is given, print error and exit
 unless ARGV[0]
-  puts "You must specify an IP address to monitor."
-  puts "Example: pingmon.exe 192.168.0.1"
-  puts "For help: pingmon.exe /?"
-  exit
+ 	puts "You must specify an IP address to monitor."
+ 	puts "Example: pingmon.exe 192.168.0.1"
+ 	puts "For help: pingmon.exe /?"
+ 	exit
 end
 if (ARGV[0] == '/?')
 	puts "Usage:"
