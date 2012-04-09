@@ -59,5 +59,5 @@ $(document).ready(function(){
         $('#content').unload().load('/graph');
     });
 });"
-return refresh
+    return refresh
 end

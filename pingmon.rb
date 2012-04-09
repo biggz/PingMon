@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'haml'
+
 #Flot JS generator
 require_relative 'javascript'
 
