@@ -10,6 +10,7 @@ function()
 
 
 $(document).ready(function(){ 
+ 	$('#content').load('/graph');
  	$("#content").mousedown(function() {
   		bAutoRefresh = false;
 	});
