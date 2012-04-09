@@ -1,7 +1,9 @@
-%script{:type => 'text/javascript', :src => '/refresh.js'}
-%h1
-	=@@host
-%div#content
-%br
-%div#reset{:style=> ''}
-	Enable auto refresh
+%script{:type => 'text/javascript'}
+	=@graph
+%script{:type => 'text/javascript', :src => '/highcharts.alt.js'}
+%script{:type => 'text/javascript', :src => '/exporting.js'}
+%script{:type => 'text/javascript', :src => '/canvas-tools.js'}
+%script{:type => 'text/javascript', :src => '/grey.js'}
+%style
+	="body {background-color: #303030;}"
+%div#container{:style => 'width:auto;height:450px;'}

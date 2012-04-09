@@ -11,6 +11,7 @@ function()
 
 $(document).ready(function(){ 
  	$('#content').load('/graph');
+ 	jQuery('#content').load('/graph');
  	$("#content").mousedown(function() {
   		bAutoRefresh = false;
 	});

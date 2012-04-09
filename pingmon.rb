@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'haml'
+require 'json'
 
 #Flot JS generator
 require_relative 'javascript'
@@ -7,7 +8,7 @@ require_relative 'javascript'
 #Webrick options
 set :server, 'webrick'
 set :port => 8080
-set :environment => :production
+#set :environment => :production
 
 #Ocra is creating an exe.
 if defined?(Ocra)
@@ -27,7 +28,6 @@ def print_stats
 	puts "Last ping: #{@@data.last[1]}"
 	puts ""
 	puts "Control + C to exit"
-
 end
 
 #If no IP argument is given, print error and exit
@@ -53,7 +53,6 @@ else
 		exit
 	end
 end
-
 #Set ping retry time
 unless ARGV[1] #No parameter given. Default to 20 seconds
 	@@ping_retry = 20
@@ -68,7 +67,6 @@ else
 	else
 		@@ping_retry = temp[0].to_i
 	end
-	
 end
 
 @@host = ARGV[0]
@@ -82,7 +80,7 @@ Thread.new {
 		#create array of strings for the command result
 		ping_result = ping_command.readlines
 		ping_command.close
-		timestamp = Time.now.to_f.floor * 1000 #Timestamp needs to be Javascript timestamp, which is UNIX timestamp * 1000
+		timestamp = (Time.now.localtime.to_f.floor+3600) * 1000 #Timestamp needs to be Javascript timestamp, which is UNIX timestamp * 1000
 		#Find the line containing the Average ping time
 		ping_result.each do |line|		
 			if line.match(/Average = \d+ms/)
@@ -95,18 +93,18 @@ Thread.new {
 			end
 		end
 		@@data << [timestamp,average_ms[0].to_i]
-		print_stats
+		print_stats	
 		ping_result = ""
 		sleep @@ping_retry
 	end
 }
 
 get '/' do
-	@refresh = print_refresh
+	@graph = print_graph
 	return haml(:index)
 end
 
-get '/graph' do
-	@graph = print_graph
-	return haml(:graph)
+get '/data.json' do
+	content_type :json
+	@@data.to_json
 end
