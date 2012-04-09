@@ -79,10 +79,11 @@ Thread.new {
 		#Run ping command
 		ping_command = IO.popen("ping -n 3 #{@@host}")
 		#create array of strings for the command result
-		ping_command = ping_command.readlines
+		ping_result = ping_command.readlines
+		ping_command.close
 		timestamp = Time.now.to_f.floor * 1000 #Timestamp needs to be Javascript timestamp, which is UNIX timestamp * 1000
 		#Find the line containing the Average ping time
-		ping_command.each do |line|		
+		ping_result.each do |line|		
 			if line.match(/Average = \d+ms/)
 				#Line found, set average_ms to the time
 				average_ms = line.match(/\d+/)
@@ -94,6 +95,7 @@ Thread.new {
 		end
 		@@data << [timestamp,average_ms[0].to_i]
 		print_stats
+		ping_result = ""
 		sleep @@ping_retry
 	end
 }
