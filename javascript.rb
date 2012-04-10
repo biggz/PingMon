@@ -95,7 +95,7 @@ $(function () {
             tooltip: {
                 formatter: function() {
                         return '<b>'+ this.y +'ms</b><br/>'+
-                        Highcharts.dateFormat('%a %m %b<br/>%H:%M:%S', this.x);
+                        Highcharts.dateFormat('%a %d %b<br/>%H:%M:%S', this.x);
                 }
             },
             series: [{
