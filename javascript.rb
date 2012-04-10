@@ -25,7 +25,8 @@ $(function () {
                     load: function() {
                         // set up the updating of the chart every 5 seconds
                         setInterval(function() {
-                            $.getJSON('data.json', function(data) {
+                            var date_obj = new Date;
+                            $.getJSON('data.json?' + date_obj.getTime(), function(data) {
                                 if (bAutoRefresh){
                                     chart.series[0].setData(data);
                                 };
@@ -87,7 +88,7 @@ $(function () {
             },
             yAxis: {
                 title: {
-                    text: 'Ping (ms)'
+                    text: '(ms)'
                 },
                 min: 0
             },
